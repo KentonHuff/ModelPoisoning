@@ -19,6 +19,7 @@ tf.get_logger().setLevel(logging.ERROR)
 from multiprocessing import Process, Manager
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
 from utils.io_utils import data_setup, mal_data_setup
 import global_vars as gv
 from agents import agent, master
@@ -95,8 +96,6 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 		print('Joined all processes for time step %s' % t)
 
 		global_weights = np.load(gv.dir_name + 'global_weights_t%s.npy' % t, allow_pickle=True)
-		
-		print('TYPE OF return_dict ITEMS:',type(return_dict[str(mal_agent_index)]))
 
 		if 'avg' in args.gar:
 			print('Using standard mean aggregation')
@@ -124,7 +123,15 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			for k in range(1,num_agents_per_time):
 				np.concatenate((update_mat,return_dict[str(curr_agents[k])].flatten()), axis=0)
 			reduced = PCA(n_components=2).fit_transform(update_mat)
-			
+			kmeans = KMeans(n_clusters=2).fit(reduced)
+			if sum(kmeans.labels_) < num_agents_per_time/2:
+				for k in range(num_agents_per_time):
+					if kmeans.labels_[k] != 1:
+						global_weights += alpha_i * return_dict[str(curr_agents[k])]
+			else:
+				for k in range(num_agents_per_time):
+					if kmeans.labels_[k] == 1:
+						global_weights += alpha_i * return_dict[str(curr_agents[k])]
 		
 		elif 'krum' in args.gar:
 			print('Using krum for aggregation')
