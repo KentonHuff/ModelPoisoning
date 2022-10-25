@@ -129,13 +129,23 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			reduced = PCA(n_components=2).fit_transform(update_mat)
 			kmeans = KMeans(n_clusters=2).fit(reduced)
 			if sum(kmeans.labels_) < num_agents_per_time/2:
+				if kmeans.labels_[mal_agent_index] == 1:
+					print("EXCLUDED MAL AGENT")
+				else:
+					print("FAILED TO EXCLUDE MAL AGENT")
 				for k in range(num_agents_per_time):
 					if kmeans.labels_[k] != 1:
 						global_weights += alpha_i * return_dict[str(curr_agents[k])]
 			else:
+				if kmeans.labels_[mal_agent_index] == 0:
+					print("EXCLUDED MAL AGENT")
+				else:
+					print("FAILED TO EXCLUDE MAL AGENT")
 				for k in range(num_agents_per_time):
 					if kmeans.labels_[k] == 1:
 						global_weights += alpha_i * return_dict[str(curr_agents[k])]
+			print("SIZE OF EXCLUDED GROUP:",min([sum(kmeans.labels_),num_agents_per_time-sum(kmeans.labels_)]))
+			
 		
 		elif 'krum' in args.gar:
 			print('Using krum for aggregation')
