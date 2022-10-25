@@ -119,12 +119,12 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 		
 		if 'pca' in args.gar:
 			print('Using PCA+Clustering')
-			print(return_dict[str(curr_agents[0])].shape)
-			update_mat = np.ravel(return_dict[str(curr_agents[0])])
+			#print(return_dict[str(curr_agents[0])].shape)
+			update_mat = np.hstack([i.ravel() for i in return_dict[str(curr_agents[0])]])
 			#print(update_mat)
 			for k in range(1,num_agents_per_time):
 				#print(return_dict[str(curr_agents[k])].flatten())
-				np.concatenate((update_mat,np.ravel(return_dict[str(curr_agents[k])])), axis=0)
+				np.concatenate((update_mat,np.hstack([i.ravel() for i in return_dict[str(curr_agents[k])]])), axis=0)
 			#print(update_mat)
 			reduced = PCA(n_components=2).fit_transform(update_mat)
 			kmeans = KMeans(n_clusters=2).fit(reduced)
