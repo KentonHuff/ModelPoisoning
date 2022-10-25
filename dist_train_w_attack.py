@@ -128,6 +128,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			#print(update_mat)
 			reduced = PCA(n_components=2).fit_transform(update_mat)
 			kmeans = KMeans(n_clusters=2).fit(reduced)
+			print(kmeans.labels_)
 			if sum(kmeans.labels_) < num_agents_per_time/2:
 				if kmeans.labels_[mal_agent_index] == 1:
 					print("EXCLUDED MAL AGENT")
