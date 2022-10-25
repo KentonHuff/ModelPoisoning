@@ -18,6 +18,7 @@ tf.get_logger().setLevel(logging.ERROR)
 
 from multiprocessing import Process, Manager
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.decomposition import PCA
 from utils.io_utils import data_setup, mal_data_setup
 import global_vars as gv
 from agents import agent, master
@@ -116,6 +117,15 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			else:
 				for k in range(num_agents_per_time):
 					global_weights += alpha_i * return_dict[str(curr_agents[k])]
+		
+		if 'pca' in args.gar:
+			print('Using PCA+Clustering')
+			update_mat = return_dict[str(curr_agents[0])].flatten()
+			for k in range(1,num_agents_per_time):
+				np.concatenate((update_mat,return_dict[str(curr_agents[k])].flatten()), axis=0)
+			reduced = PCA(n_components=2).fit_transform(update_mat)
+			
+		
 		elif 'krum' in args.gar:
 			print('Using krum for aggregation')
 			collated_weights = []
