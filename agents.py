@@ -100,7 +100,7 @@ def agent(i, X_shard, Y_shard, t, gpu_id, return_dict, X_test, Y_test, lr=None):
 
     if args.k > 1:
         config = tf.ConfigProto(gpu_options=gv.gpu_options)
-        # config.gpu_options.allow_growth = True
+        config.gpu_options.allow_growth = True
         sess = tf.Session(config=config)
     elif args.k == 1:
         sess = tf.Session()

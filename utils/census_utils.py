@@ -12,8 +12,9 @@ from keras.utils import np_utils
 import global_vars as gv
 
 def data_census():
-	data_dir = '/home/data/census/'
+	data_dir = '/home/huff0017/data/census/'
 	traindata = sio.loadmat(data_dir+'CensusTrain.mat')['traindata']
+	
 	testdata = sio.loadmat(data_dir+'CensusTest.mat')['testdata']
 
 	mask = ~np.any(np.isnan(traindata),axis=1)

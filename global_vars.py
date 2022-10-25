@@ -173,7 +173,7 @@ def init():
         IMAGE_COLS = 28
         NUM_CHANNELS = 1
         NUM_CLASSES = 10
-        BATCH_SIZE = 100
+        BATCH_SIZE = 1#100
         if args.dataset == 'MNIST':
             max_acc = 100.0
         elif args.dataset == 'fMNIST':
@@ -183,7 +183,7 @@ def init():
         moving_rate = 1.0
     elif args.dataset == 'census':
         global DATA_DIM
-        DATA_DIM = 104
+        DATA_DIM = 6#104
         BATCH_SIZE = 50
         NUM_CLASSES = 2
         max_acc = 85.0
