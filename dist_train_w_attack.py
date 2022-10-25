@@ -119,8 +119,8 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 		
 		if 'pca' in args.gar:
 			print('Using PCA+Clustering')
-			update_mat = return_dict[str(curr_agents[0])].flatten()
-			print(type(update_mat))
+			update_mat = return_dict[str(curr_agents[0])].flatten().flatten()
+			print(update_mat)
 			for k in range(1,num_agents_per_time):
 				#print(return_dict[str(curr_agents[k])].flatten())
 				np.concatenate((update_mat,return_dict[str(curr_agents[k])].flatten()), axis=0)
