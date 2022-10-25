@@ -95,7 +95,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 
 		global_weights = np.load(gv.dir_name + 'global_weights_t%s.npy' % t, allow_pickle=True)
 		
-		print('TYPE OF global_weights:',type(global_weights))
+		print('TYPE OF return_dict ITEMS:',type(return_dict[str(mal_agent_index)]))
 
 		if 'avg' in args.gar:
 			print('Using standard mean aggregation')
