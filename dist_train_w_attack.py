@@ -114,9 +114,10 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			for k in range(num_agents_per_time):
 				if G[curr_agents[k]] is None:
 					G[curr_agents[k]] = update_mat[k,:]
+					print('Rectifying none')
 				else:
 					G[curr_agents[k]] += update_mat[k,:]
-				
+				#for gind in range(a)
 				for z in range(args.k):
 					if z != curr_agents[k]:
 						cs[curr_agents[k]][z] = np.dot(G[curr_agents[k]]/np.linalg.norm(G[curr_agents[k]]),G[z]/np.linalg.norm(G[z]))
