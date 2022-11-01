@@ -115,7 +115,7 @@ def init():
     parser.add_argument("--B", type=int, default=100, help="agent batch size")
     parser.add_argument("--train", default=True, action='store_true')
     parser.add_argument("--lr_reduce", action='store_true')
-    parser.add_argument("--mal", default=True, action='store_true')
+    parser.add_argument("--mal", default=False, action='store_true')
     parser.add_argument("--mal_obj", default='single',
                         help='Objective for malicious agent')
     parser.add_argument("--mal_strat", default='asyncFL',
