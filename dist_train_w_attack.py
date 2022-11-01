@@ -103,7 +103,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 
 		global_weights = np.load(gv.dir_name + 'global_weights_t%s.npy' % t, allow_pickle=True)
 		
-		elif 'contra' in args.gar:
+		if 'contra' in args.gar:
 			update_mat = np.hstack([i.ravel() for i in return_dict[str(curr_agents[0])]])
 			for k in range(1,num_agents_per_time):
 				#print(return_dict[str(curr_agents[k])].flatten())
@@ -140,7 +140,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 				global_weights += lr[curr_agents[k]] * return_dict[str(curr_agents[k])]
 			
 
-		if 'avg' in args.gar:
+		elif 'avg' in args.gar:
 			print('Using standard mean aggregation')
 			if args.mal:
 				count = 0
@@ -160,7 +160,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 				for k in range(num_agents_per_time):
 					global_weights += alpha_i * return_dict[str(curr_agents[k])]
 		
-		if 'pca' in args.gar:
+		elif 'pca' in args.gar:
 			print('Using PCA+Clustering')
 			#print(return_dict[str(curr_agents[0])].shape)
 			update_mat = np.hstack([i.ravel() for i in return_dict[str(curr_agents[0])]])
@@ -190,7 +190,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 						global_weights += alpha_i * return_dict[str(curr_agents[k])]
 			print("SIZE OF EXCLUDED GROUP:",min([sum(kmeans.labels_),num_agents_per_time-sum(kmeans.labels_)]))
 		
-		if 'kernel' in args.gar:
+		elif 'kernel' in args.gar:
 			print('Using KPCA+Clustering')
 			#print(return_dict[str(curr_agents[0])].shape)
 			update_mat = np.hstack([i.ravel() for i in return_dict[str(curr_agents[0])]])
