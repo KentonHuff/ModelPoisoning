@@ -54,6 +54,10 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 	param_dict['shape'] = []
 	if args.gar == 'krum':
 		krum_select_indices = []
+	
+	G = [None for i in range(0,args.k)]
+	r = [1 for i in range(0,args.k)]
+	Delta = 0.1
 
 	while t < args.T:
 	# while return_dict['eval_success'] < gv.max_acc and t < args.T:
@@ -97,6 +101,35 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 		print('Joined all processes for time step %s' % t)
 
 		global_weights = np.load(gv.dir_name + 'global_weights_t%s.npy' % t, allow_pickle=True)
+		
+		elif 'contra' in args.gar:
+			update_mat = np.hstack([i.ravel() for i in return_dict[str(curr_agents[0])]])
+			for k in range(1,num_agents_per_time):
+				#print(return_dict[str(curr_agents[k])].flatten())
+				update_mat = np.vstack((update_mat,np.hstack([i.ravel() for i in return_dict[str(curr_agents[k])]])))
+			print('Using CONTRA for aggregation')
+			cs = [[0 for i in range(args.k)] for i in range(args.k)]
+			tau = [0 for i in range(args.k)]
+			for k in range(num_agents_per_time):
+				if G[curr_agents[k]] is None:
+					G[curr_agents[k]] = update_mat[k,:]
+				else:
+					G[curr_agents[k]] += update_mat[k,:]
+				
+				for z in range(args.k):
+					if z != curr_agents[k]:
+						cs[curr_agents[k]][z] = np.dot(G[curr_agents[k]]/np.linalg.norm(G[curr_agents[k]]),G[z]/np.linalg.norm(G[z]))
+				tau[curr_agents[k]] = max(cs[curr_agents[k]])
+				t=0
+				Delta = 0.1
+				if tau[curr_agents[k]] > t:
+					r[curr_agents[k]] -= Delta
+				else:
+					r[curr_agents[k]] += Delta
+
+			for m in range(args.k):
+				for n in range(args.k):
+					cs[m][n] *= min([1,tau[m]/tau[n]])
 
 		if 'avg' in args.gar:
 			print('Using standard mean aggregation')
