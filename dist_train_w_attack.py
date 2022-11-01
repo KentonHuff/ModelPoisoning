@@ -27,6 +27,7 @@ from agents import agent, master
 from utils.eval_utils import eval_func, eval_minimal
 from malicious_agent import mal_agent
 from utils.dist_utils import collate_weights, model_shape_size
+from math import log
 
 
 def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
@@ -126,10 +127,18 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 					r[curr_agents[k]] -= Delta
 				else:
 					r[curr_agents[k]] += Delta
-
+			lr = [0 for i in range(args.k)]
 			for m in range(args.k):
 				for n in range(args.k):
 					cs[m][n] *= min([1,tau[m]/tau[n]])
+				lr[m] = 1-tau[m]
+				r[m] = r[m]/max(r)
+			for m in range(args.k):
+				lr[m] = lr[m]/max[lr]
+				lr[m] = log(lr[m]/(1-lr[m]),2)+0.5
+			for k in range(num_agents_per_time):
+				global_weights += lr[curr_agents[k]] * return_dict[str(curr_agents[k])]
+			
 
 		if 'avg' in args.gar:
 			print('Using standard mean aggregation')
