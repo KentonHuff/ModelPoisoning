@@ -136,7 +136,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 				lr[m] = 1-tau[m]
 				r[m] = r[m]/max(r)
 			for m in range(args.k):
-				lr[m] = lr[m]/max[lr]
+				lr[m] = lr[m]/max(lr)
 				lr[m] = log(lr[m]/(1-lr[m]),2)+0.5
 			for k in range(num_agents_per_time):
 				global_weights += lr[curr_agents[k]] * return_dict[str(curr_agents[k])]
