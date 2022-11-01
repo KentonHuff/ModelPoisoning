@@ -42,7 +42,7 @@ def agent(i, X_shard, Y_shard, t, gpu_id, return_dict, X_test, Y_test, lr=None):
     shared_weights = np.load(gv.dir_name + 'global_weights_t%s.npy' % t, allow_pickle=True)
     shard_size = len(X_shard)
 
-    if 'theta{}'.format(gv.mal_agent_index) in return_dict.keys():
+    if args.mal and 'theta{}'.format(gv.mal_agent_index) in return_dict.keys():
         pre_theta = return_dict['theta{}'.format(gv.mal_agent_index)]
     else:
         pre_theta = None
