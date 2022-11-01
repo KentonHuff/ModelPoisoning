@@ -123,6 +123,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 					if z != curr_agents[k]:
 						cs[curr_agents[k]][z] = np.dot(G[curr_agents[k]]/np.linalg.norm(G[curr_agents[k]]),G[z]/np.linalg.norm(G[z]))
 				tau[curr_agents[k]] = max(cs[curr_agents[k]])
+				print('tau:',tau[curr_agents[k]])
 				t=0
 				Delta = 0.1
 				if tau[curr_agents[k]] > t:
@@ -134,9 +135,11 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 				for n in range(args.k):
 					cs[m][n] *= min([1,tau[m]/tau[n]])
 				lr[m] = 1-tau[m]
+				print('lr:',lr[m])
 				r[m] = r[m]/max(r)
 			for m in range(args.k):
 				lr[m] = lr[m]/max(lr)
+				print('lr:',lr[m])
 				lr[m] = log(lr[m]/(1-lr[m]),2)+0.5
 			for k in range(num_agents_per_time):
 				global_weights += lr[curr_agents[k]] * return_dict[str(curr_agents[k])]
