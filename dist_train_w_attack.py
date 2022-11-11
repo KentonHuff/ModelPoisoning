@@ -108,25 +108,25 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			for k in range(1,num_agents_per_time):
 				#print(return_dict[str(curr_agents[k])].flatten())
 				update_mat = np.vstack((update_mat,np.hstack([i.ravel() for i in return_dict[str(curr_agents[k])]])))
-			for gind in range(args.k):
-				G[gind] = 0*update_mat[k,:]
+			#for gind in range(args.k):
+			#	G[gind] = 0*update_mat[k,:]
 			print('Using CONTRA for aggregation')
-			cs = [[0 for i in range(args.k)] for i in range(args.k)]
-			tau = [0 for i in range(args.k)]
+			cs = [[0 for i in range(num_agents_per_time)] for i in range(num_agents_per_time)]
+			tau = [0 for i in range(num_agents_per_time)]
 			for k in range(num_agents_per_time):
 				if G[curr_agents[k]] is None:
 					G[curr_agents[k]] = update_mat[k,:]
 				else:
 					G[curr_agents[k]] += update_mat[k,:]
 				
-				for z in range(args.k):
-					if z != curr_agents[k]:
-						cs[curr_agents[k]][z] = np.dot(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]])),G[z]/np.linalg.norm(G[z]))
-				tau[curr_agents[k]] = max(cs[curr_agents[k]])
-				print('tau:',tau[curr_agents[k]])
+				for z in range(num_agents_per_time):
+					if z != k:
+						cs[k][z] = np.dot(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]])),G[curr_agents[z]]/np.linalg.norm(G[curr_agents[z]]))
+				tau[k] = max(cs[k])
+				print('tau:',tau[k])
 				t=0
 				Delta = 0.1
-				if tau[curr_agents[k]] > t:
+				if tau[k] > t:
 					r[curr_agents[k]] -= Delta
 				else:
 					r[curr_agents[k]] += Delta
