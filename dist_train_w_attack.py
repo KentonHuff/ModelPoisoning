@@ -117,7 +117,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 				if G[curr_agents[k]] is None:
 					G[curr_agents[k]] = update_mat[k,:]
 					print('Initialized!')
-					print(type(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]]))))
+					print(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]])))
 				else:
 					G[curr_agents[k]] += update_mat[k,:]
 					print(type(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]]))))
