@@ -133,19 +133,19 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 					r[curr_agents[k]] -= Delta
 				else:
 					r[curr_agents[k]] += Delta
-			lr = [0 for i in range(num_agents_per_time)]
+			learning_rates = [0 for i in range(num_agents_per_time)]
 			for m in range(num_agents_per_time):
 				for n in range(num_agents_per_time):
 					cs[m][n] *= min([1,tau[m]/tau[n]])
-				lr[m] = 1-tau[m]
-				print('lr:',lr[m])
+				learning_rates[m] = 1-tau[m]
+				#print('lr:',lr[m])
 				r[m] = r[m]/max(r)
 			for m in range(num_agents_per_time):
-				lr[m] = lr[m]/max(lr)
-				print('lr:',lr[m])
-				lr[m] = log(lr[m]/(1-lr[m]),2)+0.5
+				learning_rates[m] = learning_rates[m]/max(learning_rates)
+				#print('lr:',lr[m])
+				learning_rates[m] = log(learning_rates[m]/(1-learning_rates[m]),2)+0.5
 			for k in range(num_agents_per_time):
-				global_weights += lr[k] * return_dict[str(curr_agents[k])]
+				global_weights += learning_rates[k] * return_dict[str(curr_agents[k])]
 			
 
 		elif 'avg' in args.gar:
