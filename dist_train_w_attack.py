@@ -116,12 +116,12 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			for k in range(num_agents_per_time):
 				if G[curr_agents[k]] is None:
 					G[curr_agents[k]] = update_mat[k,:]
-					print('Initialized!')
-					print(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]])))
+					#print('Initialized!')
+					#print(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]])))
 				else:
 					G[curr_agents[k]] += update_mat[k,:]
-					print(type(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]]))))
-				
+					#print(type(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]]))))
+			for k in range(num_agents_per_time):				
 				for z in range(num_agents_per_time):
 					if z != k:
 						cs[k][z] = np.dot(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]])),G[curr_agents[z]]/np.linalg.norm(G[curr_agents[z]]))
