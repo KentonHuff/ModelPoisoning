@@ -63,11 +63,16 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 	while t < args.T:
 	# while return_dict['eval_success'] < gv.max_acc and t < args.T:
 		print('Time step %s' % t)
+		
+		lmbda = args.C*(1-args.C)
+		probs = [args.C + lmbda*ri for ri in r]
+		probs_sum = sum(probs)
+		probs = [elem/probs_sum for elem in probs]
 
 		process_list = []
 		mal_active = 0
 		curr_agents = np.random.choice(agent_indices, num_agents_per_time,
-									   replace=False)
+									   replace=False,p=probs)
 		print('Set of agents chosen: %s' % curr_agents)
 
 		k = 0
