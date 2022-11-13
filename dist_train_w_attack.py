@@ -145,8 +145,9 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 				learning_rates[m] = 1-tau[m]
 				print('lr:',learning_rates[m])
 				r[m] = r[m]/max(r)
+			learning_rates_max = max(learning_rates)
 			for m in range(num_agents_per_time):
-				learning_rates[m] = learning_rates[m]/max(learning_rates)
+				learning_rates[m] = learning_rates[m]/learning_rates_max
 				print('lr:',learning_rates[m])
 				if learning_rates[m] != 0.0:
 					learning_rates[m] = log(learning_rates[m]/(1-learning_rates[m]),2)+0.5
