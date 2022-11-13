@@ -43,6 +43,7 @@ def agent(i, X_shard, Y_shard, t, gpu_id, return_dict, X_test, Y_test, lr=None):
     shard_size = len(X_shard)
 
     if args.mal and 'theta{}'.format(gv.mal_agent_index) in return_dict.keys():
+        print('pre_theta initialized')
         pre_theta = return_dict['theta{}'.format(gv.mal_agent_index)]
     else:
         pre_theta = None
