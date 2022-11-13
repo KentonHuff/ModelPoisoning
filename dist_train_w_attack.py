@@ -131,7 +131,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 					if z != k:
 						cs[k][z] = np.dot(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]])),G[curr_agents[z]]/np.linalg.norm(G[curr_agents[z]]))
 				tau[k] = max(cs[k])
-				#print('tau:',tau[k])
+				print('tau:',tau[k])
 				t=0
 				Delta = 0.1
 				if tau[k] > t:
