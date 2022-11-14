@@ -186,7 +186,7 @@ def init():
         moving_rate = 1.0
     elif args.dataset == 'census':
         global DATA_DIM
-        DATA_DIM = 6#104
+        DATA_DIM = 7#104
         BATCH_SIZE = 50
         NUM_CLASSES = 2
         max_acc = 85.0
