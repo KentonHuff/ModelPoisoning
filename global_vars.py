@@ -116,6 +116,7 @@ def init():
     parser.add_argument("--train", default=True, action='store_true')
     parser.add_argument("--lr_reduce", action='store_true')
     parser.add_argument("--mal", default=False, action='store_true')
+    parser.add_argument("--num_mal", type=int, default=1, help="number of malicious agents")
     parser.add_argument("--mal_obj", default='single',
                         help='Objective for malicious agent')
     parser.add_argument("--mal_strat", default='asyncFL',
@@ -149,7 +150,9 @@ def init():
 
     if args.mal:
         global mal_agent_index
-        mal_agent_index = args.k - 1
+        global num_mal
+        mal_agent_index = args.k - args.num_mal
+        num_mal = args.num_mal
 
     # Moving rate of 1.0 leads to full overwrite
     global moving_rate
