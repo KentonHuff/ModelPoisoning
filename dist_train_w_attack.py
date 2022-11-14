@@ -156,7 +156,8 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 				if learning_rates[m] != 0.0:
 					learning_rates[m] = log(learning_rates[m]/(1-learning_rates[m]),2)+0.5
 			for k in range(num_agents_per_time):
-				global_weights += learning_rates[k] * return_dict[str(curr_agents[k])]
+				#global_weights += learning_rates[k] * return_dict[str(curr_agents[k])]
+				global_weights += alpha_i * return_dict[str(curr_agents[k])]
 			
 
 		elif 'avg' in args.gar:
