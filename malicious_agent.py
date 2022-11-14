@@ -456,7 +456,7 @@ def mal_all_algs(x, y, logits, agent_model, shared_weights, sess, mal_data_X, ma
     return final_delta
 
 
-def mal_agent(X_shard, Y_shard, mal_data_X, mal_data_Y, t, gpu_id, return_dict,
+def mal_agent(i,X_shard, Y_shard, mal_data_X, mal_data_Y, t, gpu_id, return_dict,
               mal_visible, X_test, Y_test):
     args = gv.init()
 
@@ -556,8 +556,8 @@ def mal_agent(X_shard, Y_shard, mal_data_X, mal_data_Y, t, gpu_id, return_dict,
     write_dict['eval_loss'] = eval_loss
     file_write(write_dict, purpose='mal_eval_loss')
 
-    return_dict[str(gv.mal_agent_index)] = np.array(final_delta)
-    return_dict["theta{}".format(gv.mal_agent_index)] = np.array(final_weights)
+    return_dict[str(i)] = np.array(final_delta)
+    return_dict["theta{}".format(i)] = np.array(final_weights)
     np.save(gv.dir_name + 'mal_delta_t%s.npy' % t, final_delta)
 
     if 'auto' in args.mal_strat or 'multiple' in args.mal_obj:
