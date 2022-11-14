@@ -147,9 +147,9 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			for m in range(num_agents_per_time):
 				learning_rates[m] = learning_rates[m]/learning_rates_max
 				print('normalized lr:',learning_rates[m])
-				if learning_rates[m] != 0.0:
-					learning_rates[m] = log(learning_rates[m]/(1-learning_rates[m]),2)+0.5
-				print('diverged lr:',learning_rates[m])
+				#if learning_rates[m] != 0.0:
+				#	learning_rates[m] = log(learning_rates[m]/(1-learning_rates[m]),2)+0.5
+				#print('diverged lr:',learning_rates[m])
 			learning_rates_sum = sum(learning_rates)
 			for m in range(num_agents_per_time):
 				learning_rates[m] = learning_rates[m]/learning_rates_sum * alpha_i*num_agents_per_time
