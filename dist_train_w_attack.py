@@ -113,8 +113,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			for k in range(1,num_agents_per_time):
 				#print(return_dict[str(curr_agents[k])].flatten())
 				update_mat = np.vstack((update_mat,np.hstack([i.ravel() for i in return_dict[str(curr_agents[k])]])))
-			#for gind in range(args.k):
-			#	G[gind] = 0*update_mat[k,:]
+			print(update_mat)
 			print('Using CONTRA for aggregation')
 			cs = [[0 for i in range(num_agents_per_time)] for i in range(num_agents_per_time)]
 			tau = [0 for i in range(num_agents_per_time)]
