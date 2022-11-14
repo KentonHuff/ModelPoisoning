@@ -110,12 +110,9 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 		
 		if 'contra' in args.gar:
 			update_mat = np.hstack([i.ravel() for i in return_dict[str(curr_agents[0])]])
-			print(return_dict[str(curr_agents[0])])
 			for k in range(1,num_agents_per_time):
 				#print(return_dict[str(curr_agents[k])].flatten())
-				print(return_dict[str(curr_agents[k])])
 				update_mat = np.vstack((update_mat,np.hstack([i.ravel() for i in return_dict[str(curr_agents[k])]])))
-			print(update_mat)
 			print('Using CONTRA for aggregation')
 			cs = [[0 for i in range(num_agents_per_time)] for i in range(num_agents_per_time)]
 			tau = [0 for i in range(num_agents_per_time)]
@@ -130,10 +127,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			for k in range(num_agents_per_time):				
 				for z in range(num_agents_per_time):
 					if z != k:
-						print(G[curr_agents[k]])
-						print(G[curr_agents[z]])
 						cs[k][z] = np.dot(np.divide(G[curr_agents[k]],np.linalg.norm(G[curr_agents[k]])),G[curr_agents[z]]/np.linalg.norm(G[curr_agents[z]]))
-						print(cs[k][z])
 				tau[k] = max(cs[k])
 				print('tau:',tau[k])
 				t=0
@@ -155,9 +149,10 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 				print('lr:',learning_rates[m])
 				if learning_rates[m] != 0.0:
 					learning_rates[m] = log(learning_rates[m]/(1-learning_rates[m]),2)+0.5
+				print('final lr:',learning_rates[m])
 			for k in range(num_agents_per_time):
-				#global_weights += learning_rates[k] * return_dict[str(curr_agents[k])]
-				global_weights += alpha_i * return_dict[str(curr_agents[k])]
+				global_weights += learning_rates[k] * return_dict[str(curr_agents[k])]
+				#global_weights += alpha_i * return_dict[str(curr_agents[k])]
 			
 
 		elif 'avg' in args.gar:
