@@ -132,9 +132,9 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 
 				tau[k] = max(cs[k])
 				print('tau:',tau[k])
-				threshold=0
+				
 				Delta = 0.1
-				if tau[k] > threshold:
+				if tau[k] > 0.9 or tau[k] < -0.01:
 					r[curr_agents[k]] -= Delta
 				else:
 					r[curr_agents[k]] += Delta
