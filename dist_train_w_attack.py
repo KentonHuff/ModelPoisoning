@@ -27,7 +27,7 @@ from agents import agent, master
 from utils.eval_utils import eval_func, eval_minimal
 from malicious_agent import mal_agent
 from utils.dist_utils import collate_weights, model_shape_size
-from math import log
+from math import log, inf
 
 
 def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
@@ -114,7 +114,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 				#print(return_dict[str(curr_agents[k])].flatten())
 				update_mat = np.vstack((update_mat,np.hstack([i.ravel() for i in return_dict[str(curr_agents[k])]])))
 			print('Using CONTRA for aggregation')
-			cs = [[0 for i in range(num_agents_per_time)] for i in range(num_agents_per_time)]
+			cs = [[-inf for i in range(num_agents_per_time)] for i in range(num_agents_per_time)]
 			tau = [0 for i in range(num_agents_per_time)]
 			for k in range(num_agents_per_time):
 				if G[curr_agents[k]] is None:
