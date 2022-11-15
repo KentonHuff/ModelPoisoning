@@ -143,7 +143,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 				for n in range(num_agents_per_time):
 					cs[m][n] *= min([1,tau[m]/tau[n]])
 				learning_rates[m] = 1-tau[m]
-				print('initial lr:',learning_rates[m])
+				#print('initial lr:',learning_rates[m])
 				r[m] = r[m]/max(r)
 			learning_rates_max = max(learning_rates)
 			for m in range(num_agents_per_time):
@@ -155,7 +155,7 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 			learning_rates_sum = sum(learning_rates)
 			for m in range(num_agents_per_time):
 				learning_rates[m] = learning_rates[m]/learning_rates_sum * alpha_i*num_agents_per_time
-				#print('final lr:',learning_rates[m])
+				print('final lr:',learning_rates[m])
 			#print('sum:',sum(learning_rates))
 			for k in range(num_agents_per_time):
 				global_weights += learning_rates[k] * return_dict[str(curr_agents[k])]
