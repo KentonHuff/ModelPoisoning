@@ -176,7 +176,7 @@ def init():
         IMAGE_COLS = 28
         NUM_CHANNELS = 1
         NUM_CLASSES = 10
-        BATCH_SIZE = 50
+        BATCH_SIZE = 1
         if args.dataset == 'MNIST':
             max_acc = 100.0
         elif args.dataset == 'fMNIST':
