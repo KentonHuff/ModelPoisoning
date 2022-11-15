@@ -145,8 +145,8 @@ def init():
     # print(args)
 
     # making sure single agent run is only for the benign case
-    if args.k==1:
-        assert args.mal==False
+    #if args.k==1:
+    #    assert args.mal==False
 
     if args.mal:
         global mal_agent_index
