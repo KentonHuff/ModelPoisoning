@@ -510,7 +510,8 @@ def mal_agent(i,X_shard, Y_shard, mal_data_X, mal_data_Y, t, gpu_id, return_dict
         labels=y, logits=logits))
 
     config = tf.ConfigProto(gpu_options=gv.gpu_options)
-    # config.gpu_options.allow_growth = True
+    config.gpu_options.allow_growth = True
+    config.gpu_options.per_process_gpu_memory_fraction = 0.3
     sess = tf.Session(config=config)
     tf.keras.backend.set_session(sess)
 
