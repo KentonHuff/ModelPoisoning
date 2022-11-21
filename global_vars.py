@@ -139,6 +139,8 @@ def init():
                         help='Data repetitions for data poisoning')
     parser.add_argument('--gpu_ids', nargs='+', type=int, default=None,
                         help='GPUs to run on')
+    parser.add_argument('--iid', type=float, default=1.0,
+                        help="degree to which data is independent, identically distributed (range [0,1], higher is more iid)")
 
     global args
     args = parser.parse_args()
