@@ -337,7 +337,24 @@ def main(args):
 	Y_train = Y_train[sort_indices]
 	X_train = X_train[sort_indices]
 	
-	print('Shapes:')
+	num_slices = round(((len(X_train)-args.k)*args.iid+args.k) / args.k) * args.k
+	
+	slices_per_client = round(num_slices/args.k)
+	
+	X_slices = np.array_split(X_train, num_slices)
+	Y_slices = np.array_split(Y_train, num_slices)
+	
+	slice_indices = np.random.choice(
+		num_slices, num_slices, replace=False)
+	
+	X_train_shards = []
+	Y_train_shards = []
+	for i in range(0,num_slices,slices_per_client):
+		idxs = slice_indices[i:i+slices_per_client]
+		X_train_shards.append(np.stack([X_slices[slice_idx] for slice_idx in idxs]))
+		Y_train_shards.append(np.stack([Y_slices[slice_idx] for slice_idx in idxs]))
+	
+	'''print('Shapes:')
 	print(X_train.shape)
 	print(Y_train.shape)
 
@@ -347,7 +364,7 @@ def main(args):
 	X_train_permuted = X_train[random_indices]
 	Y_train_permuted = Y_train[random_indices]
 	X_train_shards = np.split(X_train_permuted, args.k)
-	Y_train_shards = np.split(Y_train_permuted, args.k)
+	Y_train_shards = np.split(Y_train_permuted, args.k)'''
 
 	if args.mal:
 		# Load malicious data
