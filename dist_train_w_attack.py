@@ -327,6 +327,16 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 def main(args):
 	X_train, Y_train, X_test, Y_test, Y_test_uncat = data_setup()
 	
+	keys = []
+	for i in range(Y_train.shape[1]):
+		keys.append(Y_train[:,i])
+	keys = tuple(keys)
+	
+	sort_indices = np.lexsort(keys)
+	
+	Y_train = Y_train[sort_indices]
+	X_train = X_train[sort_indices]
+	
 	print('Shapes:')
 	print(X_train.shape)
 	print(Y_train.shape)
