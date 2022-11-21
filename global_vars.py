@@ -178,12 +178,12 @@ def init():
         IMAGE_COLS = 28
         NUM_CHANNELS = 1
         NUM_CLASSES = 10
-        BATCH_SIZE = 1
+        BATCH_SIZE = 100
         if args.dataset == 'MNIST':
             max_acc = 100.0
         elif args.dataset == 'fMNIST':
             max_acc = 90.0
-        max_agents_per_gpu = 1
+        max_agents_per_gpu = 6
         mem_frac = 0.05
         moving_rate = 1.0
     elif args.dataset == 'census':
