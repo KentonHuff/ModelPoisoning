@@ -326,6 +326,10 @@ def train_fn(X_train_shards, Y_train_shards, X_test, Y_test, return_dict,
 
 def main(args):
 	X_train, Y_train, X_test, Y_test, Y_test_uncat = data_setup()
+	
+	print('Shapes:')
+	print(X_train.shape)
+	print(Y_train.shape)
 
 	# Create data shards
 	random_indices = np.random.choice(
