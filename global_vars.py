@@ -202,7 +202,7 @@ def init():
         NUM_CLASSES = 10
         BATCH_SIZE = 100
         max_acc = 90.0
-        max_agents_per_gpu = 6
+        max_agents_per_gpu = 2
         mem_frac = 0.05
         moving_rate = 1.0
 
