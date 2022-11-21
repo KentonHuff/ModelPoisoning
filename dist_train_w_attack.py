@@ -351,8 +351,8 @@ def main(args):
 	Y_train_shards = []
 	for i in range(0,num_slices,slices_per_client):
 		idxs = slice_indices[i:i+slices_per_client]
-		X_train_shards.append(np.stack([X_slices[slice_idx] for slice_idx in idxs]))
-		Y_train_shards.append(np.stack([Y_slices[slice_idx] for slice_idx in idxs]))
+		X_train_shards.append(np.concatenate([X_slices[slice_idx] for slice_idx in idxs]))
+		Y_train_shards.append(np.concatenate([Y_slices[slice_idx] for slice_idx in idxs]))
 	
 	'''print('Shapes:')
 	print(X_train.shape)
