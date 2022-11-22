@@ -183,7 +183,7 @@ def init():
             max_acc = 100.0
         elif args.dataset == 'fMNIST':
             max_acc = 90.0
-        max_agents_per_gpu = 3
+        max_agents_per_gpu = 2
         mem_frac = 0.05
         moving_rate = 1.0
     elif args.dataset == 'census':
@@ -202,7 +202,7 @@ def init():
         NUM_CLASSES = 10
         BATCH_SIZE = 100
         max_acc = 90.0
-        max_agents_per_gpu = 2
+        max_agents_per_gpu = 1
         mem_frac = 0.05
         moving_rate = 1.0
 
