@@ -184,7 +184,7 @@ def init():
         elif args.dataset == 'fMNIST':
             max_acc = 90.0
         max_agents_per_gpu = 2
-        mem_frac = 0.4
+        mem_frac = 0.3
         moving_rate = 1.0
     elif args.dataset == 'census':
         global DATA_DIM
