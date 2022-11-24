@@ -44,7 +44,7 @@ def benign_train(x, y, agent_model, logits, X_shard, Y_shard, sess, shared_weigh
     if args.k > 1:
         config = tf.ConfigProto(gpu_options=gv.gpu_options)
         config.gpu_options.allow_growth = True
-        config.gpu_options.per_process_gpu_memory_fraction = 0.05
+        #config.gpu_options.per_process_gpu_memory_fraction = 0.05
         temp_sess = tf.Session(config=config)
     elif args.k == 1:
         temp_sess = tf.Session()
