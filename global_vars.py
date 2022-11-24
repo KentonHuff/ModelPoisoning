@@ -112,7 +112,7 @@ def init():
     parser.add_argument("--steps", type=int, default=None,
                         help="GD steps per agent")
     parser.add_argument("--T", type=int, default=80, help="max time_steps")
-    parser.add_argument("--B", type=int, default=100, help="agent batch size")
+    parser.add_argument("--B", type=int, default=75, help="agent batch size")
     parser.add_argument("--train", default=True, action='store_true')
     parser.add_argument("--lr_reduce", action='store_true')
     parser.add_argument("--mal", default=False, action='store_true')
@@ -178,7 +178,7 @@ def init():
         IMAGE_COLS = 28
         NUM_CHANNELS = 1
         NUM_CLASSES = 10
-        BATCH_SIZE = 1
+        BATCH_SIZE = 75
         if args.dataset == 'MNIST':
             max_acc = 100.0
         elif args.dataset == 'fMNIST':
