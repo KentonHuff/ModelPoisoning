@@ -53,7 +53,7 @@ def eval_setup(global_weights):
     if args.k > 1:
         config = tf.ConfigProto(gpu_options=gv.gpu_options)
         config.gpu_options.allow_growth = True
-        #config.gpu_options.per_process_gpu_memory_fraction = 0.05
+        config.gpu_options.per_process_gpu_memory_fraction = 0.8
         sess = tf.Session(config=config)
     elif args.k == 1:
         sess = tf.Session()
