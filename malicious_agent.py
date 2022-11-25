@@ -202,6 +202,7 @@ def alternate_train(sess, t, optimizer, loss, mal_optimizer, mal_loss, x, y,
                 x: mal_data_X, y: mal_data_Y})
         # Malicious, only if mal loss is non-zero
         print(mal_loss_val_bef)
+        mal_loss_val_aft = None
         if step >= 0 and mal_loss_val_bef[0] > 0.0:
             # print('Boosting mal at step %s' % step)
             weights_ben_local = np.array(agent_model.get_weights())
@@ -234,7 +235,8 @@ def alternate_train(sess, t, optimizer, loss, mal_optimizer, mal_loss, x, y,
                 agent_model.set_weights(boosted_weights)
             mal_loss_val_aft = sess.run([mal_loss], feed_dict={
                 x: mal_data_X, y: mal_data_Y})
-
+        if mal_loss_val_aft is None:
+            mal_loss_val_aft = 0
         if step % 10 == 0 and 'dist' in args.mal_strat:
             print('Benign: Loss1 - %s, Loss2 - %s, Loss - %s; Mal: Loss_bef - %s Loss_aft - %s' %
                   (loss1_val, loss2_val, loss_val, mal_loss_val_bef, mal_loss_val_aft))
