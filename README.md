@@ -43,16 +43,26 @@ The other attacks can be found in the file `malicious_agent.py`.
 In order to connect to the GPU machines, you must be on the OU network either in person or via VPN. Instructions for setting up VPN access can be found here: https://www.ou.edu/marcomm/cms/get-started/vpn
 
 Once on the OU network, you can connect to a machine via ssh (PuTTY on windows).
+
 Connection information:
+
 Host Name: gpel12.cs.nor.ou.edu
+
 Port: 22
+
 Connection Type: SSH
 
 One you connect, log in with your OU 4x4 and password.
 
 ## Graduate student lab machine
 There is another GPU machine in the graduate student computer lab. This computer's GPU has more memory than the gpel machines, but it has a CUDA compute capability that is too low for the latest versions of TensorFlow. This caused all kinds of problems, and I was unable to get it to work. You could try to get it to work to take advantage of the extra memory and speed up training if you want. You'll have to get someone to set up an account for you on this machine. Egawati Panjei helped me via Dr. Gruenwald.
+
 Connection information:
+
 Host Name: [username]@iverson.cs.nor.ou.edu
+
 Port: 22
+
 Connection Type: SSH
+
+
