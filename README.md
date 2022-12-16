@@ -46,11 +46,13 @@ Once on the OU network, you can connect to a machine via ssh (PuTTY on windows).
 
 Connection information:
 
-Host Name: gpel12.cs.nor.ou.edu
+Host Name: gpel[number].cs.nor.ou.edu
 
 Port: 22
 
 Connection Type: SSH
+
+Replace [number] with a number between 8 and 13 inclusive to choose which of the 6 gpel machines to use. I have always used gpel12, and I know that the current settings work on that machine. I'm not sure whether the others have different GPUs or not.
 
 One you connect, log in with your OU 4x4 and password.
 
@@ -79,4 +81,11 @@ conda env create -f environment.yml
 Activate the conda environment with
 ```
 conda activate tf
+```
+
+## Running Experiments
+The shell commands for colecting one repetition of data are in DataCollection.sh. Running this script takes ~1 day. You begin running the script in the background and log out by using the following commands:
+```
+nohup bash DataCollection.sh &
+exit
 ```
