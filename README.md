@@ -36,6 +36,8 @@ The function of the various parameters that are set by `utils/globals_vars.py` i
 | --mal_E     | Number of epochs for malicious agent                   |
 | --ls        | Ratio of benign to malicious steps in alt. min. attack |
 | --rho       | Weighting factor for distance constraint               |
+| --num_mal   | Number of malicious clients                            |
+| --iid       | Extent to which data is iid between clients            |
 
 The other attacks can be found in the file `malicious_agent.py`.
 
