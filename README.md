@@ -65,4 +65,18 @@ Port: 22
 
 Connection Type: SSH
 
+## Setting up the environment
+Once logged into a gpel machine install miniconda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
 
+Clone your fork of this repo to your local machine. Navigate into the ModelPoisoning Folder
+
+Then recreate the conda environment with this command:
+
+```
+conda env create -f environment.yml
+```
+
+Activate the conda environment with
+```
+conda activate tf
+```
