@@ -100,3 +100,30 @@ Each agent being trained will appear as a separate thread/process, and you can m
 
 If your runs are crashing from OOM or you have too much unused memory, there are several parameters you can adjust to fix this:
 
+* Batch size: in global_vars.py adjust the BATCH_SIZE variable for the dataset you are using and adjust the --B flag (see the above table) to match. Reducing the batch size reduces the per agent memory demand.
+* max_agents_per_gpu: in global_vars.py adjust the max_agents_per_gpu variable for the dataset you are using. Reducing this reduces the memory demand by training fewer agents on the gpu at one time.
+
+## Reading list
+The following are the most important papers that I have encountered to understand this research:
+
+1. McMahan, B., Moore, E., Ramage, D., Hampson, S., & y Arcas, B. A. (2017, April). Communication-efficient learning of deep networks from decentralized data. In Artificial intelligence and statistics (pp. 1273-1282). PMLR.
+
+This introduces the idea of federated learning.
+
+2.  Bhagoji, A. N., Chakraborty, S., Mittal, P., & Calo, S. (2019, May). Analyzing federated learning through an adversarial lens. In International Conference on Machine Learning (pp. 634-643). PMLR.
+
+This introduces the model poisoning attack. This is the paper this code was originally created for at https://github.com/inspire-group/ModelPoisoning
+
+3. Tolpegin, V., Truex, S., Gursoy, M. E., & Liu, L. (2020, September). Data poisoning attacks against federated learning systems. In European Symposium on Research in Computer Security (pp. 480-501). Springer, Cham.
+
+Introduces the PCA defense
+
+4. Li, D., Wong, W. E., Wang, W., Yao, Y., & Chau, M. (2021, August). Detection and mitigation of label-flipping attacks in federated learning systems with KPCA and K-means. In 2021 8th International Conference on Dependable Systems and Their Applications (DSA) (pp. 551-559). IEEE.
+
+Introduced the kPCA defense
+
+5. Awan, S., Luo, B., & Li, F. (2021, October). Contra: Defending against poisoning attacks in federated learning. In European Symposium on Research in Computer Security (pp. 455-475). Springer, Cham.
+
+Introduces the CONTRA defense
+
+
