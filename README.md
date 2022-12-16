@@ -134,7 +134,7 @@ Introduces the CONTRA defense
     * The PCA and kPCA algorithms mention only including that which is connected to the output layer in the dimensionality reduction. This implementation doens't do this right now, but maybe it should.
     * Look into the KernelPCA documentation and decide which settings to use.
 * Important: the visualizations currently only use data from one run of the experiments. We want to do multiple runs and average the results, but I rand out of time.
-* Decide how you want to parametrize iid. The way I did it doesn't seem great; currently, as the parameter increases the data becomes iid very quickly. Instead, maybe measure it by the number of data slices per client and look at small numbers, i.e. 1 to 10 slices per client. This could be more meaningful.
+* Decide how you want to parametrize iid (data is distributed in the main method in dist_train_w_attack.py). The way I did it doesn't seem great; currently, as the parameter increases the data becomes iid very quickly. Instead, maybe measure it by the number of data slices per client and look at small numbers, i.e. 1 to 10 slices per client. This could be more meaningful.
 * Potential future direction: see if the results are different with different datasets (census, CIFAR-10). We only use fMNIST right now.
 * Potential future direction: additional defense methods?
 * Potential future direction: implement a new defense method?
