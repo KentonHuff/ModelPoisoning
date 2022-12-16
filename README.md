@@ -126,4 +126,15 @@ Introduced the kPCA defense
 
 Introduces the CONTRA defense
 
+## Next Steps
 
+* Review the implementation of the algorithms in dist_train_w_attack.py. Some specific points:
+    * Review the loops in the CONTRA implementation. Are they referring to all of the clients or only those included in that communication round? Change the implementation if you interpret this differently than I did.
+    * Figure out what values to use for the parameters Delta and the similarity threshold (I chose 0.9) in the CONTRA algorithm. The paper mentions suggestions for Delta based upon which classification task they were doing, but I couldn't find what values they used for the threshold.
+    * The PCA and kPCA algorithms mention only including that which is connected to the output layer in the dimensionality reduction. This implementation doens't do this right now, but maybe it should.
+    * Look into the KernelPCA documentation and decide which settings to use.
+* Important: the visualizations currently only use data from one run of the experiments. We want to do multiple runs and average the results, but I rand out of time.
+* Decide how you want to parametrize iid. The way I did it doesn't seem great; currently, as the parameter increases the data becomes iid very quickly. Instead, maybe measure it by the number of data slices per client and look at small numbers, i.e. 1 to 10 slices per client. This could be more meaningful.
+* Potential future direction: see if the results are different with different datasets (census, CIFAR-10). We only use fMNIST right now.
+* Potential future direction: additional defense methods?
+* Potential future direction: implement a new defense method?
