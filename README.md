@@ -84,8 +84,19 @@ conda activate tf
 ```
 
 ## Running Experiments
-The shell commands for colecting one repetition of data are in DataCollection.sh. Running this script takes ~1 day. You begin running the script in the background and log out by using the following commands:
+The shell commands for collecting one repetition of data are in DataCollection.sh. Running this script takes ~1 day. You begin running the script in the background and log out by using the following commands:
 ```
 nohup bash DataCollection.sh &
 exit
 ```
+Standard out will be redirected to the file nohup.out. The results (records of performance metrics) will be created in the folder output_files/. The R script for generating the visualizations is in the folder results/. The csvs for that script were created by copying the relevant data points from the files in output_files/.
+
+## Configuration for optimal GPU usage
+The GPUs we have access to have a very limited amount of memory. If we provision too much memory, the program crashes. But if we provision too little, the experiments can take unnecessarily long to run. To examine the amount of memory used as you run an experiment, connect with a second ssh/PuTTY window and use the command
+```
+watch -n 1 nvidia-smi
+```
+Each agent being trained will appear as a separate thread/process, and you can monitor the total memory usage and the usage of each process.
+
+If your runs are crashing from OOM or you have too much unused memory, there are several parameters you can adjust to fix this:
+
